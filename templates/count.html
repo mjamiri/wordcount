@@ -1,0 +1,17 @@
+<a href="{% url 'about' %}">About</a>
+
+<h1>There are {{count}} words</h1>
+
+<a href="{% url 'home' %}">Start Again</a>
+
+<h1>Yuor Text : </h1>
+
+<h2>{{ yourtext }}</h2>
+
+<h1>Word Count : </h1>
+
+{% for w , c in worddict %}
+
+<h2> {{ w }} : {{c}} </h2>
+<br />
+{% endfor %}
