@@ -19,37 +19,31 @@ class apicount(APIView):
     def post(self, request, format=None):
         text = request.data['text']
         wordlist = text.split()
-        worddict = {}
+        sortdict = word_count(wordlist)
 
-        for word in wordlist:
-            if word in worddict:
-                worddict[word] += 1
-            else:
-                worddict[word] = 1
-        sortdict = sorted(worddict.items(),
-                          key=lambda item: item[1], reverse=True)
         return Response(sortdict)
 
 
 def count(request):
     text = request.GET['fulltext']
-    # print(text)
-    # print(wordlist)
-
     wordlist = text.split()
+    sortdict = word_count(wordlist)
+    return render(request, 'count.html', {'yourtext': text, 'count': len(wordlist), 'worddict': sortdict})
+
+
+def word_count(words):
     worddict = {}
 
-    for word in wordlist:
+    for word in words:
         if word in worddict:
             worddict[word] += 1
         else:
             worddict[word] = 1
 
-    sortdict = sorted(worddict.items(), key=lambda item: item[1], reverse=True)
-    # sortdict = sorted(worddict.items(),
-    #                   key=operator.itemgetter(1), reverse=True)
-    # print(sortdict)
-    return render(request, 'count.html', {'yourtext': text, 'count': len(wordlist), 'worddict': sortdict})
+    sort_dic = sorted(worddict.items(), key=lambda item: item[1], reverse=True)
+
+    return sort_dic
+
 
 # def eggs(request):
 #     return HttpResponse('<h2>I like egg</h2>')
