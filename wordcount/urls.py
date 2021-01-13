@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     # path('eggs/',views.eggs),
     path('count/', views.count, name='count'),
-    path('about/', views.about, name='about')
+    path('about/', views.about, name='about'),
+    path('api/count/', views.apicount.as_view()),
 ]
